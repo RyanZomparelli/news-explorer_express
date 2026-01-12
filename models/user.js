@@ -46,7 +46,13 @@ Error: Incorrect email or password
     at <anonymous>
 */
 
-// This is the first step in the auth flow. Authentication before authorization.
+/* Auth flow:
+     0. Register (createUser).
+     1. Login (login -> getUserByCredentials -> jwt.sign). Authenticate
+     2. getCurrentUser (CheckAuthorization). Authorize
+     */
+
+// Authentication. This is the first step in the auth flow. Next step, generate a jwt for authorization.
 userSchema.statics.findUserByCredentials = async function findUserByCredentials(
   email,
   password,
