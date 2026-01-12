@@ -8,6 +8,8 @@ const mongoose = require("mongoose");
 
 const cors = require("cors");
 
+const centralErrorHandler = require("./middlewares/error-handler");
+
 // 2. app creation and DB connection.
 
 const app = express();
@@ -32,11 +34,11 @@ app.use(cors());
 
 // 5. Error handling middlewares for things that go wrong in the processing.
 
-// ...
+app.use(centralErrorHandler);
 
 // 6. Starting the server and begin accepting requests.
 
-const { PORT = 3001 } = process.env;
+const { PORT = 3000 } = process.env;
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
