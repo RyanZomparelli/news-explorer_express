@@ -1,5 +1,5 @@
 // The entry point, app.js is like the motherboard of my backend api.
-// It connects all the peices and the ordering matters.
+// It connects all the pieces and the ordering of these different parts is important.
 
 // 1. Library dependencies and internal module imports.
 const express = require("express");
@@ -7,6 +7,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const cors = require("cors");
+
+const indexRouter = require("./routes/index.js");
 
 const centralErrorHandler = require("./middlewares/error-handler");
 
@@ -28,11 +30,11 @@ mongoose
 // Once I get routes running, temporarily remove this and make requests to demonstrate what happens without it.
 app.use(cors());
 
-// 4. Routes to request processing.
+// 4. Routes to request controllers.
 
-// ...
+app.use("/", indexRouter);
 
-// 5. Error handling middlewares for things that go wrong in the processing.
+// 5. Error handling middlewares for things that go wrong in the processing/controllers.
 
 app.use(centralErrorHandler);
 

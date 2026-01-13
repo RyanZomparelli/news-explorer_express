@@ -45,6 +45,7 @@ const deleteArticle = async (req, res, next) => {
   const { id } = req.params;
   try {
     const article = await Article.findById(id).select("+owner").orFail();
+    // Make sure this article owner matches the token holder making the request.
     // Reduce the id's to strings because mongoose ObjectId's can evaluate to !== even if they match.
     if (article.owner.toString() !== req.user._id.toString()) {
       throw new ForbiddenError("Access denied");
