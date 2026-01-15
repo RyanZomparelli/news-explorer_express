@@ -6,11 +6,8 @@ const express = require("express");
 
 const mongoose = require("mongoose");
 
+const helmet = require("helmet");
 const cors = require("cors");
-
-const indexRouter = require("./routes/index.js");
-
-const { requestLogger, errorLogger } = require("./middlewares/logger.js");
 
 // joi/celebrate
 // If the request doesn’t pass the described validation, celebrate will pass it
@@ -18,7 +15,11 @@ const { requestLogger, errorLogger } = require("./middlewares/logger.js");
 // errors() middleware for sending errors to the client.
 const { errors } = require("celebrate");
 
+const { requestLogger, errorLogger } = require("./middlewares/logger");
+
 const centralErrorHandler = require("./middlewares/error-handler");
+
+const indexRouter = require("./routes/index");
 
 // 2. app creation and DB connection.
 
@@ -35,7 +36,9 @@ mongoose
 
 // 3. Preroute middlewares.
 
-// Once I get routes running, temporarily remove this and make requests to demonstrate what happens without it.
+// Set security headers for responses.
+app.use(helmet());
+
 app.use(cors());
 // Parses JSON requests.
 app.use(express.json());
@@ -60,7 +63,7 @@ app.use(centralErrorHandler);
 
 // 6. Starting the server and begin accepting requests.
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3002 } = process.env;
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);

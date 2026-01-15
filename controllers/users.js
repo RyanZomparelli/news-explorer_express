@@ -28,7 +28,7 @@ const register = async (req, res, next) => {
     });
 
     // Don't send the password.
-    res.status(201).send({ email: user.email, name: user.name });
+    return res.status(201).send({ email: user.email, name: user.name });
   } catch (err) {
     // Error from mongoose schema validation.
     if (err.name === "ValidationError") {
@@ -40,7 +40,7 @@ const register = async (req, res, next) => {
       return next(new ConflictError("Email already in use"));
     }
     // Catch all for unexpected errors. Returns 500 server error.
-    next(err);
+    return next(err);
   }
 };
 
@@ -65,7 +65,7 @@ const login = async (req, res, next) => {
     // Create a token for authorization on protected routes.
     const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: "7d" });
 
-    res.status(200).send({ token });
+    return res.status(200).send({ token });
   } catch (err) {
     if (
       err.name === "ValidationError" ||
@@ -87,7 +87,7 @@ const getCurrentUser = async (req, res, next) => {
     //  returns a DocumentNotFoundError instead of null.
     const user = await User.findById(_id).orFail();
 
-    res.status(200).send(user);
+    return res.status(200).send(user);
   } catch (err) {
     if (err.name === "DocumentNotFoundError") {
       return next(new NotFoundError("Requested resource not found"));

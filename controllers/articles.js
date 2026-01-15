@@ -10,7 +10,7 @@ const getArticles = async (req, res, next) => {
   try {
     // Return all articles that match this owner.
     const articles = await Article.find({ owner: _id }).select("+owner");
-    res.status(200).send(articles);
+    return res.status(200).send(articles);
   } catch (err) {
     return next(err);
   }
@@ -33,7 +33,7 @@ const saveArticle = async (req, res, next) => {
       owner: _id,
     });
 
-    res.status(201).send(article);
+    return res.status(201).send(article);
   } catch (err) {
     if (err.name === "ValidationError") {
       return next(new BadRequestError("Invalid data"));
@@ -53,7 +53,7 @@ const deleteArticle = async (req, res, next) => {
     }
     // Already have the specific article in question. Can use this instance method.
     await article.deleteOne();
-    res.status(200).send({ message: "Article deleted successfully" });
+    return res.status(200).send({ message: "Article deleted successfully" });
   } catch (err) {
     if (err.name === "CastError") {
       return next(new BadRequestError("Invalid data"));
