@@ -2,12 +2,18 @@ const router = require("express").Router();
 const { register, login } = require("../controllers/users");
 const articleRouter = require("./articles");
 const userRouter = require("./users");
+// auth middleware
 const checkAuthorization = require("../middlewares/auth");
+// joi validation middleware
+const {
+  validateUserBody,
+  validateAuthentication,
+} = require("../middlewares/validation");
 const NotFoundError = require("../utils/errors/not-found-err");
 
 // Two public routes that don't need auth middleware.
-router.post("/signup", register);
-router.post("/signin", login);
+router.post("/signup", validateUserBody, register);
+router.post("/signin", validateAuthentication, login);
 
 router.use("/articles", checkAuthorization, articleRouter);
 router.use("/users", checkAuthorization, userRouter);

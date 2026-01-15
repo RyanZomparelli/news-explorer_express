@@ -4,10 +4,14 @@ const {
   saveArticle,
   deleteArticle,
 } = require("../controllers/articles");
+const {
+  validateArticleBody,
+  validateId,
+} = require("../middlewares/validation");
 
 router.get("/", getArticles);
-router.post("/", saveArticle);
+router.post("/", validateArticleBody, saveArticle);
 // : for dynamic request parameters.
-router.delete("/:articleId", deleteArticle);
+router.delete("/:articleId", validateId, deleteArticle);
 
 module.exports = router;
