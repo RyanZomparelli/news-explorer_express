@@ -69,7 +69,7 @@ app.use(centralErrorHandler);
 
 // 6. Starting the server and begin accepting requests.
 
-const { PORT = 3002 } = process.env;
+const { PORT = 3005 } = process.env;
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
