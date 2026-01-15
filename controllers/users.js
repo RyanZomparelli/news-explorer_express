@@ -65,7 +65,7 @@ const login = async (req, res, next) => {
     // Create a token for authorization on protected routes.
     const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: "7d" });
 
-    res.status(200).send(token);
+    res.status(200).send({ token });
   } catch (err) {
     if (
       err.name === "ValidationError" ||

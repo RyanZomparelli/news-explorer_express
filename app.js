@@ -29,6 +29,8 @@ mongoose
 
 // Once I get routes running, temporarily remove this and make requests to demonstrate what happens without it.
 app.use(cors());
+// Parses JSON requests.
+app.use(express.json());
 
 // 4. Routes to request controllers.
 

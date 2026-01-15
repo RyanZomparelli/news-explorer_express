@@ -19,6 +19,7 @@ const getArticles = async (req, res, next) => {
 const saveArticle = async (req, res, next) => {
   const { _id } = req.user;
   const { keyword, title, text, date, source, link, image } = req.body;
+
   try {
     // Don't forget to add the owner _id!
     const article = await Article.create({
@@ -42,9 +43,9 @@ const saveArticle = async (req, res, next) => {
 };
 
 const deleteArticle = async (req, res, next) => {
-  const { id } = req.params;
+  const { articleId } = req.params;
   try {
-    const article = await Article.findById(id).select("+owner").orFail();
+    const article = await Article.findById(articleId).select("+owner").orFail();
     // Make sure this article owner matches the token holder making the request.
     // Reduce the id's to strings because mongoose ObjectId's can evaluate to !== even if they match.
     if (article.owner.toString() !== req.user._id.toString()) {
