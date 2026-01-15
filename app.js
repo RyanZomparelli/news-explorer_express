@@ -10,6 +10,8 @@ const cors = require("cors");
 
 const indexRouter = require("./routes/index.js");
 
+const { requestLogger, errorLogger } = require("./middlewares/logger.js");
+
 const centralErrorHandler = require("./middlewares/error-handler");
 
 // 2. app creation and DB connection.
@@ -32,11 +34,17 @@ app.use(cors());
 // Parses JSON requests.
 app.use(express.json());
 
+app.use(requestLogger);
+
 // 4. Routes to request controllers.
 
 app.use("/", indexRouter);
 
 // 5. Error handling middlewares for things that go wrong in the processing/controllers.
+
+// Winston error logs
+// The error logger needs to be enabled after the route handlers and before the error handlers.
+app.use(errorLogger);
 
 app.use(centralErrorHandler);
 
