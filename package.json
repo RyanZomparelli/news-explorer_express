@@ -1,0 +1,48 @@
+{
+  "name": "news-explorer_express",
+  "version": "1.0.0",
+  "description": "Backend Api for News Explorer application",
+  "main": "app.js",
+  "scripts": {
+    "lint": "eslint .",
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyanZomparelli/news-explorer_express.git"
+  },
+  "keywords": [
+    "news",
+    "api",
+    "express",
+    "mongodb"
+  ],
+  "author": "Ryan Zomparelli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RyanZomparelli/news-explorer_express/issues"
+  },
+  "homepage": "https://github.com/RyanZomparelli/news-explorer_express#readme",
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.10.2",
+    "eslint-plugin-import": "^2.32.0",
+    "nodemon": "^3.1.11",
+    "prettier": "^3.7.4"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "celebrate": "^15.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "express-winston": "^4.2.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^8.9.5",
+    "validator": "^13.15.26",
+    "winston": "^3.19.0"
+  }
+}
